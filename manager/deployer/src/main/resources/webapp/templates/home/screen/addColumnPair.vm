@@ -1,0 +1,118 @@
+$control.setTemplate("home:navigation.vm")
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script> 
+<script type="text/javascript"> 
+	changeNav("sync");
+	/* 将ObjSource数据转到ObjTarget   */
+	function down(ObjSource, ObjTarget){
+		if(ObjSource.val() ==null) return;
+		jQuery.each(ObjSource.val().split("\n"), function(i, n) {    // 循环原列表中选中的值，依次添加到目标列表中 
+			if(n != null && n.length > 0){
+            	var html = "<option value='" + n + "' selected='selected'>" + n + "</option>"; 
+            	ObjTarget.append(html); 
+			}
+        }); 
+        ObjSource.val("");
+	}
+	/* 将ObjTarget数据转到ObjSource   */
+	function up(ObjSource, ObjTarget){
+		if(ObjTarget.val() ==null) return;
+		ObjSource.val(ObjTarget.val().toString().replace(/,/g,'\n'));
+        ObjTarget.empty(); //清空
+	}
+	
+	jQuery(document).ready(function($){
+		$('#submit').click(function(){
+			$('select#dltTarget_l option').each(function(index, el){
+				$(el).attr('selected','selected');
+			});
+			return true;
+		});
+	});
+	
+	
+	jQuery(document).ready(function($){
+		$('#submit').click(function(){
+			$('select#dltTarget_r option').each(function(index, el){
+				$(el).attr('selected','selected');
+			});
+			return true;
+		});
+	});
+	
+	jQuery(document).ready(function($){
+		$('#submitnext').click(function(){
+			$('select#dltTarget_l option').each(function(index, el){
+				$(el).attr('selected','selected');
+			});
+			return true;
+		});
+	});
+	
+	
+	jQuery(document).ready(function($){
+		$('#submitnext').click(function(){
+			$('select#dltTarget_r option').each(function(index, el){
+				$(el).attr('selected','selected');
+			});
+			return true;
+		});
+	});
+</script>
+#macro (addColumnPairMessage $field)
+    #if (!$field.valid) $field.message #end
+#end
+<div class="main">
+  <div class="title"> 
+    <h2>Table详细</h2>
+  </div> 
+<div class="crumbs"><a href="channelList.htm?channelId=$channelId">Channel管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a href="pipelineList.htm?channelId=$channelId">Pipeline管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a href="dataMediaPairList.htm?pipelineId=$pipelineId">映射关系管理</a>&nbsp;&nbsp;>&nbsp;&nbsp;<a href="addColumnPair.htm?pipelineId=$pipelineId&channelId=$channelId&dataMediaPairId=$dataMediaPairId&sourceMediaId=$sourceMediaId&targetMediaId=$targetMediaId">编辑视图同步</a> </div>
+  <form name="addColumnPairForm" method="post" enctype="multipart/form-data">
+	$csrfToken.hiddenField
+	<input type="hidden" name="action" value="column_pair_action"/>
+	<input type="hidden" name="event_submit_do_save" value="1" />
+	<input type="hidden" name="dataMediaPairId" value="$dataMediaPairId" />
+	<input type="hidden" name="sourceMediaId" value="$sourceMediaId" />
+	<input type="hidden" name="targetMediaId" value="$targetMediaId" />
+	<input type="hidden" name="pipelineId" value="$pipelineId" />
+	<input type="hidden" name="channelId" value="$channelId" />
+	#set ($columnPair = $form.columnPairInfo.defaultInstance)
+	<input type="hidden" name="$columnPair.id.key" value="1"/>
+  <div class="sel_l">
+  <div class="box1"> 
+  		<textarea cols="54" rows="20" id="dltSource_l"></textarea> 
+  </div> 
+  <div class="box2">
+  		 <input type="button" class="btn_down2" onclick="down($('#dltSource_l'),$('#dltTarget_l'))" /> 
+         <input type="button" class="btn_up2" onclick="up($('#dltSource_l'),$('#dltTarget_l'))" /> 
+  </div> 
+  <div class="box3"> 
+        <select id="dltTarget_l" name="$columnPair.dltTarget_l.key" multiple="multiple"> 
+			#foreach ($underSourceColumn in $underSourceColumns)
+				<option value="$!underSourceColumn" selected="selected">$!underSourceColumn</option> 
+            #end
+        </select> 
+  </div> 
+  
+  <input type="submit" id="submit" name="submitKey" value="保存" class="button"></input>
+  <input type="submit" id="submitnext" name="submitKey" value="下一步" class="button"></input>
+  <span class="red">#addColumnPairMessage ($columnPair.formColumnPairError)</span>
+  </div>
+  
+  <div class="sel_r">
+  <div class="box1"> 
+  		<textarea cols="54" rows="20" id="dltSource_r"></textarea>  
+  </div> 
+  <div class="box2"> 
+  		<input type="button" class="btn_down2" onclick="down($('#dltSource_r'),$('#dltTarget_r'))" /> 
+         <input type="button" class="btn_up2" onclick="up($('#dltSource_r'),$('#dltTarget_r'))" />
+  </div> 
+  <div class="box3"> 
+        <select id="dltTarget_r" name="$columnPair.dltTarget_r.key" multiple="multiple"> 
+			#foreach ($underTargetColumn in $underTargetColumns)
+				<option value="$!underTargetColumn" selected="selected">$!underTargetColumn</option> 
+            #end
+        </select> 
+  </div> 
+  </div>
+  </form>  
+</div>
