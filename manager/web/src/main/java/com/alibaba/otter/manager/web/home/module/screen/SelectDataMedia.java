@@ -21,19 +21,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.dataresolver.Param;
 import com.alibaba.citrus.util.Paginator;
 import com.alibaba.otter.manager.biz.config.datamedia.DataMediaService;
+import com.alibaba.otter.manager.web.common.WebConstant;
 import com.alibaba.otter.shared.common.model.config.data.DataMedia;
+import com.alibaba.otter.shared.common.model.user.User;
 
 public class SelectDataMedia {
 
     @Resource(name = "dataMediaService")
     private DataMediaService dataMediaService;
 
-    public void execute(@Param("pageIndex") int pageIndex, @Param("searchKey") String searchKey,
+    public void execute(HttpSession session, @Param("pageIndex") int pageIndex, @Param("searchKey") String searchKey,
                         @Param("local") String local, Context context) throws Exception {
         @SuppressWarnings("unchecked")
         Map<String, Object> condition = new HashMap<String, Object>();
@@ -41,6 +44,11 @@ public class SelectDataMedia {
             searchKey = "";
         }
         condition.put("searchKey", searchKey);
+        
+      //System.out.println("cannal列表："+pageIndex+","+);
+    	User userInfo = (User) session.getAttribute(WebConstant.USER_SESSION_KEY);
+        if(userInfo != null && userInfo.getAuthorizeType().isAdmin())//确定是否进行过滤
+        	condition.put("userId", userInfo.getId());
 
         int count = dataMediaService.getCount(condition);
         Paginator paginator = new Paginator();

@@ -77,7 +77,7 @@ public class ChannelServiceImpl implements ChannelService {
 
                     ChannelDO channelDo = modelToDo(channel);
                     channelDo.setId(0L);
-
+                    channelDo.setName(channelDo.getName()+TimeUtil.getTime0());
                     if (!channelDao.checkUnique(channelDo)) {
                         String exceptionCause = "exist the same name channel in the database.";
                         logger.warn("WARN ## " + exceptionCause);
@@ -484,7 +484,7 @@ public class ChannelServiceImpl implements ChannelService {
         try {
             channelDO.setId(channel.getId());
             channelDO.setUserId(channel.getUserId());
-            channelDO.setName(channel.getName()+TimeUtil.getTime0());
+            channelDO.setName(channel.getName());
             channelDO.setDescription(channel.getDescription());
             channelDO.setStatus(channel.getStatus());
             channelDO.setParameters(channel.getParameters());

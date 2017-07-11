@@ -285,7 +285,7 @@ public class DataMediaServiceImpl implements DataMediaService {
         try {
             dataMediaDo.setId(dataMedia.getId());
             dataMediaDo.setUserId(dataMedia.getUserId());
-            dataMediaDo.setName(dataMedia.getName()+TimeUtil.getTime0());
+            dataMediaDo.setName(dataMedia.getName());
             dataMediaDo.setNamespace(dataMedia.getNamespace());
             dataMediaDo.setDataMediaSourceId(dataMedia.getSource().getId());
             // if (dataMedia instanceof DbDataMedia) {

@@ -67,6 +67,7 @@ public class CanalServiceImpl implements CanalService {
                 try {
                     CanalDO canalDO = modelToDo(canal);
                     canalDO.setId(0L);
+                    canalDO.setName(canalDO.getName()+TimeUtil.getTime0());
                     if (!canalDao.checkUnique(canalDO)) {
                         String exceptionCause = "exist the same repeat canal in the database.";
                         logger.warn("WARN ## " + exceptionCause);
@@ -218,7 +219,7 @@ public class CanalServiceImpl implements CanalService {
         try {
             canalDo.setId(canal.getId());
             canalDo.setUserId(canal.getUserId());
-            canalDo.setName(canal.getName()+TimeUtil.getTime0());
+            canalDo.setName(canal.getName());
             canalDo.setStatus(canal.getStatus());
             canalDo.setDescription(canal.getDesc());
             canalDo.setParameters(canal.getCanalParameter());

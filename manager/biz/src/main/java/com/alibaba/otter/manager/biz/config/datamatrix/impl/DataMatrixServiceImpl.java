@@ -57,6 +57,7 @@ public class DataMatrixServiceImpl implements DataMatrixService {
                 try {
                     DataMatrixDO matrixlDO = modelToDo(matrix);
                     matrixlDO.setId(0L);
+                    matrixlDO.setGroupKey(matrixlDO.getGroupKey()+TimeUtil.getTime0());
                     if (!dataMatrixDao.checkUnique(matrixlDO)) {
                         String exceptionCause = "exist the same repeat canal in the database.";
                         logger.warn("WARN ## " + exceptionCause);
@@ -201,7 +202,7 @@ public class DataMatrixServiceImpl implements DataMatrixService {
         try {
             matrixDo.setId(matrix.getId());
             matrixDo.setUserId(matrix.getUserId());
-            matrixDo.setGroupKey(matrix.getGroupKey()+TimeUtil.getTime0());
+            matrixDo.setGroupKey(matrix.getGroupKey());
             matrixDo.setDescription(matrix.getDescription());
             matrixDo.setMaster(matrix.getMaster());
             matrixDo.setSlave(matrix.getSlave());

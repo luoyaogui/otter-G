@@ -45,7 +45,7 @@ public class SelectCanal {
     @Resource(name = "pipelineService")
     private PipelineService pipelineService;
 
-    public void execute(@Param("pageIndex") int pageIndex, HttpSession session, @Param("searchKey") String searchKey, Context context)
+    public void execute(HttpSession session, @Param("pageIndex") int pageIndex, @Param("searchKey") String searchKey, Context context)
                                                                                                                  throws Exception {
         @SuppressWarnings("unchecked")
         Map<String, Object> condition = new HashMap<String, Object>();

@@ -53,6 +53,7 @@ public class DataMediaSourceServiceImpl implements DataMediaSourceService {
         try {
             DataMediaSourceDO dataMediaSourceDo = modelToDo(dataMediaSource);
             dataMediaSourceDo.setId(0L);
+            dataMediaSourceDo.setName(dataMediaSourceDo.getName()+TimeUtil.getTime0());
 
             if (!dataMediaSourceDao.checkUnique(dataMediaSourceDo)) {
                 String exceptionCause = "exist the same name source in the database.";
@@ -192,7 +193,7 @@ public class DataMediaSourceServiceImpl implements DataMediaSourceService {
         try {
             dataMediaSourceDo.setId(dataMediaSource.getId());
             dataMediaSourceDo.setUserId(dataMediaSource.getUserId());
-            dataMediaSourceDo.setName(dataMediaSource.getName()+TimeUtil.getTime0());
+            dataMediaSourceDo.setName(dataMediaSource.getName());
             dataMediaSourceDo.setType(dataMediaSource.getType());
             if (dataMediaSource instanceof DbMediaSource) {
                 dataMediaSourceDo.setProperties(JsonUtils.marshalToString((DbMediaSource) dataMediaSource));
