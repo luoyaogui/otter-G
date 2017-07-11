@@ -1,5 +1,5 @@
 <h1>
-<a name="%E4%BB%80%E4%B9%88%E6%98%AFcanal-" class="anchor" href="#%E4%BB%80%E4%B9%88%E6%98%AFcanal-"><span class="octicon octicon-link"></span></a>什么是canal? </h3>
+<a name="%E4%BB%80%E4%B9%88%E6%98%AFcanal-" class="anchor" href="#%E4%BB%80%E4%B9%88%E6%98%AFcanal-"><span class="octicon octicon-link"></span></a>什么是otter? </h3>
 链接地址：<a href="http://github.com/alibaba/otter">http://github.com/alibaba/otter</a>
 </h1>
 
