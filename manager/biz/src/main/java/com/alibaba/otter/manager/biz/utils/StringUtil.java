@@ -13,7 +13,7 @@ public abstract class StringUtil {
 	}
 	
 	/* canal的信息如下
-	 * {"@type":"com.alibaba.otter.canal.protocol.position.LogPosition","identity":{"slaveId":-1,"sourceAddress":{"address":"192.168.0.245","port":3306}},"postion":{"included":false,"journalName":"mysql-bin.000015","position":719176606,"serverId":30245,"timestamp":1488417704000}}
+	 * {"@type":"com.alibaba.otter.canal.protocol.position.LogPosition","identity":{"slaveId":-1,"sourceAddress":{"address":"*","port":3306}},"postion":{"included":false,"journalName":"mysql-bin.000015","position":719176606,"serverId":30245,"timestamp":1488417704000}}
 	 * */
 	public static long getPositionTime(String position){//
 		if(isNoneEmpty(position) && position.length()>17)
