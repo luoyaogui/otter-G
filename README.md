@@ -15,3 +15,9 @@
 <p><span>4.  </span><span>权限：由SUPERIOR、ADMIN、OPERATOR组成，只有登录成功的用户才能查看相关信息，否则一直在登录页面</p>
 <p><span>4.  </span><span>canal源码中Canal类添加了userId字段，以及相关的set/get方法</p>
 <p> </p>
+
+
+注释：Canal的MysqlEventParser的老版本没有对standbyInfo进行判断，
+      新版本boolean case2 = (standbyInfo == null || standbyInfo.getAddress() == null)
+                                    && logPosition.getPostion().getServerId() != null
+                                    && !logPosition.getPostion().getServerId().equals(findServerId(mysqlConnection));
